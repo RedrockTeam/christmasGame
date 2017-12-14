@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>圣诞大作战</title>
+    <!-- 优先使用webkit内核渲染 -->
+    <meta name="renderer" content="webkit">
+    <link rel="stylesheet" type="text/css" href="../static/style/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/games-xmas.css">
+</head>
+
+<body>
+    <div class="game-container" id='game-container'>
+        <div class="settings">
+            <div class="time">
+                <img src="../static/images/time.png">
+                <div class="seconds">
+                </div>
+            </div>
+            <ul class="voiceList">
+                <li class="voiceItem voice">
+                    <img src="../static/images/goldvoice.png">
+                </li>
+                <li class="voiceItem help">
+                    <img src="../static/images/goldhelp.png">
+                </li>
+            </ul>
+        </div>
+        
+    </div>
+    <div class="over">
+        <img src="../static/images/over.png">
+        <ul class="btnsList">
+            <li class="btn viewrank">
+                <a href="#">
+                    <img src="../static/images/viewrank.png">
+                </a>
+            </li>
+            <li class="btn again">
+                <img src="../static/images/again.png">
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript" src='../static/js/libs/jquery-3.2.1.min.js'></script>
+    <script type="text/javascript" src='../static/js/libs/lodash.js'></script>
+    <script type="text/javascript" src='../static/js/helper.js'></script>
+    <script type="text/javascript">
+    // 初始化REM大小
+    window.HELPER.initRemSize();
+    </script>
+    <script type="text/javascript" src='../static/js/games-xmas.js'></script>
+    <script type="text/javascript">
+    // 开始游戏
+    $.xMas('#game-container');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,104 @@
+@font-face {
+    font-family: fontone;
+    src: url(../images/font/HYZhuZiMuTouRenW.ttf);
+}
+
+.settings {
+    position: absolute;
+    width: 100%;
+    z-index: 100;
+}
+
+.game-container {
+    height: 100%;
+    width: 100%;
+    z-index: 10;
+    position: relative;
+    overflow: hidden;
+}
+
+.game-over{
+    background-color: rgba(0,0,0,0.7);
+    z-index: 100;
+}
+
+.enemy {
+    background: url(../images/thief.png) no-repeat;
+    position: absolute;
+    width: 1.17rem;
+    height: 1.48rem;
+    background-size: 100% 100%;
+}
+
+.enemy-fast {
+    background: url(../images/fastthief.png) no-repeat;
+    position: absolute;
+    width: 1.17rem;
+    height: 1.48rem;
+    background-size: 100% 100%;
+}
+
+.control {
+    position: absolute;
+    top: 5rem;
+    left: 4rem;
+    width: 1.4rem;
+    height: 2.06rem;
+    z-index: 10000;
+}
+
+.over {
+    position: relative;
+    display: none;
+    margin: 0 auto;
+    top: -10.5rem;
+    width: 6.08rem;
+    height: 6.53rem;
+    z-index: 1000;
+}
+
+.close {
+    position: absolute;
+}
+
+.btnsList {
+    position: relative;
+    top: -2.3rem;
+    width: 84%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.time {
+    position: relative;
+    display: inline-block;
+    padding-left: 0.3rem;
+}
+
+.seconds {
+    position: absolute;
+    top: 0.3rem;
+    left: 1.0rem;
+    width: 60%;
+    height: 60%;
+    font-size: 0.4rem;
+    text-align: center;
+    line-height: 0.9rem;
+    color: #f1fffe;
+    letter-spacing: 0.05rem;
+    font-family: fontone;
+}
+
+.again {
+    float: left;
+}
+
+.viewrank {
+    float: right;
+}
+
+.buff {
+    position: absolute;
+    width: 0.57rem;
+    height: 0.57rem;
+}

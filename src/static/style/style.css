@@ -1,0 +1,179 @@
+/*初始化样式*/
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td {
+    margin: 0;
+    padding: 0;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font: 12px/1.5tahoma, arial, \5b8b\4f53;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-size: 100%;
+}
+
+address,
+cite,
+dfn,
+em,
+var {
+    font-style: normal;
+}
+
+code,
+kbd,
+pre,
+samp {
+    font-family: couriernew, courier, monospace;
+}
+
+small {
+    font-size: 12px;
+}
+
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+sup {
+    vertical-align: text-top;
+}
+
+sub {
+    vertical-align: text-bottom;
+}
+
+legend {
+    color: #000;
+}
+
+fieldset,
+img {
+    border: 0;
+}
+
+button,
+input,
+select,
+textarea {
+    font-size: 100%;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+
+
+
+/*我的样式*/
+
+html{
+    height: 100%;
+    width: 100%;
+}
+
+body{
+    height: 100%;
+    width: 100%;
+    background: url(../images/indexbg.png) no-repeat;
+    background-size: 100%;   
+    overflow: hidden;
+}
+
+
+/*开始样式*/
+
+
+.main{
+    width: 100%;
+    height: 100%;
+    background: url(../images/bg.png);
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+
+.voiceList{
+    float: right;
+    overflow: hidden;
+}
+
+.voiceItem{
+    float: right;
+    padding: 0.2rem;
+    padding-top: 0rem;
+    text-align: center;
+}
+
+.logo{
+    margin: 0 auto;
+    margin-top: 1.5rem;
+    width: 4.8rem;
+    text-align: center;
+}
+
+.btns{
+    width: 3.2rem;
+    margin: 0 auto;
+    margin-top: 4.6rem;
+}
+
+
+
+
+
+
+/*
+.seconds{
+    position: absolute;
+    top: 0;
+    right: 0;
+}*/
+
+
+
+
+
