@@ -34,10 +34,11 @@
 
 			// 开始游戏
 			this.startGame = function() {
-				$(".over").css("display", "none");
-				$(".game-container").removeClass("game-over");
 				var control = document.createElement("div");
 				var father = document.createElement("img");
+				$(".over").css("display", "none");
+				$(".settings").css("display", "block")
+				$(".game-container").removeClass("game-over");
 				$(father).attr("src", "../static/images/father.png")
 				$(control).attr("class", "control");
 				$(control).append(father);
@@ -51,7 +52,7 @@
 				this.pointTimer();
 				this.scoreTimer = setInterval(function() {
 					if (this.character.point > 0 && this.character.point < 30) {
-						console.log("yes");
+
 						this.makeBuff("gold");
 					}
 					if (this.character.point > 30) {
@@ -61,16 +62,20 @@
 				this.hitTimer = setInterval(function() {
 					for (var j = 0; j < $(".enemy").length; j++) {
 						if (this.gameStatusTrigger($(".control"), $(".enemy")[j])) {
-							this.killGame();
+							if (this.character.whosYourDaddy == true) {
+								$(".enemy")[j].remove();
+							} else {
+								this.killGame();
+							}
 						}
 					}
 
 					if (this.gameStatusTrigger($(".control"), $(".gold"))) {
 						this.character.whosYourDaddy = true;
 						$(".gold").remove();
-						console.log(this.character.whosYourDaddy);
 						this.cancelBuff("gold", 3000);
 					}
+
 				}.bind(this), 30);
 			}
 
@@ -79,17 +84,22 @@
 			// 结束游戏
 			this.killGame = function() {
 				$(".over").css("display", "block");
-				$(".game-container").addClass('game-over')
-				$(".game-container").children().remove();
-				clearInterval(this.timeTimer);
+				$(".game-container").children().not(".settings").remove();
+				$(".settings").css("display", "none");
+				$(".game-container").addClass('game-over');
 				clearInterval(this.scoreTimer);
 				clearInterval(this.enemyTimer);
 				clearInterval(this.hitTimer);
+				// console.log(this.character.point);
+				clearInterval(window.timeTimer);
+				this.callback(this.character.point);
 				this.pointTimer(1);
 				$(".again").on('click', function() {
 					this.startGame();
 				}.bind(this));
 			}
+
+
 
 			/**
 			 * 绑定玩家移动事件
@@ -143,6 +153,7 @@
 				var perHeight = 148;
 
 
+
 				// 循环生成敌人
 				for (i = 0; i < numbers; i++) {
 					var enemy = document.createElement("div");
@@ -150,13 +161,13 @@
 					// 如果是左右的话，那么在Y轴上生成随机位置
 					if (_.includes(['left', 'right'], direction)) {
 						$(enemy).css({
-							top: _.random(6) * perWidth + 'px'
+							top: _.random(8) * perWidth + 'px'
 						});
 					}
 					// 如果是上下的话，那么在X轴上生成随机位置
 					if (_.includes(['top', 'bottom'], direction)) {
 						$(enemy).css({
-							left: _.random(9) * perHeight + 'px'
+							left: _.random(4) * perHeight + 'px'
 						});
 					}
 					// 初始上下左右位置
@@ -220,14 +231,13 @@
 							});
 							break;
 					}
-					$
 
 					// 判断超出屏幕销毁
 					if (parseInt($(enemy).css("left")) > innerWidth || parseInt($(enemy).css("right")) > innerWidth || parseInt($(enemy).css("top")) > innerHeight || parseInt($(enemy).css("bottom")) > innerHeight) {
 						this.destroyEnemy(enemy);
 					}
 					// 下一次普通速度
-					if (true) {
+					if (true){
 						return this.moveEnemy(enemy, 2, direction);
 					}
 					// 下一次判断进入范围加速
@@ -275,7 +285,7 @@
 					var delay = setTimeout(function() {
 						this.character.whosYourDaddy = false;
 						console.log(this.character.whosYourDaddy);
-					}, delayTime)
+					}.bind(this), delayTime)
 				}
 
 			}
@@ -287,31 +297,63 @@
 			this.pointTimer = function(init) {
 				var s = 0;
 				var ms = 0;
-				this.timeTimer = setInterval(function() {
-					score = s + "." + ms / 10;
-					this.character.point = score;
-					// $(".seconds")[0].innerHTML = this.character.point;
-					ms += 10;
-					if (ms == 1000) {
-						ms = 0;
-						s++;
-					}
-					console.log(this.character.point);
-				}.bind(this), 10)
 
 				if (init == 1) {
 					s = 0;
 					ms = 0;
 					this.character.point = 0;
-				}
+				} else {
+					if (window.timeTimer) {
+						window.clearInterval(window.timeTimer);
+					}
+					window.timeTimer = setInterval(function() {
+						score = s + "." + ms / 10;
+						this.character.point = score;
+
+						ms += 10;
+						if (ms == 1000) {
+							ms = 0;
+							s++;
+						}
+						this.showPoint(score);
+						// console.log(score);
+						
+					}.bind(this), 10)
+
+				} 
 
 			}
+
+
+			/**
+			 * [showPoint description]
+			 * @param  {[type]} score [所得分数]
+			 * @return {[type]}       [description]
+			 */
+
+			this.showPoint = function(score) {
+				var a = score.split(".");
+				if (a[0] < 10) {
+					scoreBefore = '0' + a[0];
+				} else {
+					scoreBefore = a[0];
+				}
+				if (a[1] < 10) {
+					scoreAfter = '0' + a[1];
+				} else {
+					scoreAfter = a[1];
+				}
+				var time = scoreBefore + '″' + scoreAfter;
+				$(".seconds").html(time);
+			}
+
 
 			/**
 			 * 游戏状态触发器
 			 * 该触发器触发当前游戏状态，例如是否吃了BUFF，是否碰到了敌人，敌人是否需要加速等等
-			 * @param  {[type]} status [0: 停止触发，1：继续监听]
-			 * @return {[type]} [description]
+			 * @param  {[type]}  item [碰撞物体]
+			 * @param  {[type]}  hitObj [被撞物体]
+			 * @return {[type]} true [触发]
 			 */
 			this.gameStatusTrigger = function(item, hitObj) {
 				if (item.length == 0 || hitObj.length == 0) {
