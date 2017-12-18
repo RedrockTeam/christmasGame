@@ -110,6 +110,7 @@
 				var xMan = $("." + xMan);
 
 				var touchstart = function(event) {
+					event.preventDefault();
 					startClientX = event.touches[0].clientX;
 					startClientY = event.touches[0].clientY;
 					currentLeft = parseFloat(xMan.css("left"));

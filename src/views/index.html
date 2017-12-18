@@ -10,6 +10,9 @@
     <script type="text/javascript">
     // 初始化REM大小
     window.HELPER.initRemSize();
+    document.querySelector('body').addEventListener('touchstart', function(ev) {
+        ev.preventDefault();
+    });
     </script>
     <link rel="stylesheet" type="text/css" href="../static/style/games-xmas.css">
     <link rel="stylesheet" type="text/css" href="../static/style/init.css">
@@ -48,9 +51,6 @@
             </li>
         </ul>
     </div>
-
-
-
     <script type="text/javascript" src='../static/js/libs/jquery-3.2.1.min.js'></script>
     <script type="text/javascript" src='../static/js/libs/lodash.js'></script>
     <script type="text/javascript" src='../static/js/http.js'></script>
