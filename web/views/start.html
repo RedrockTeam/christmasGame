@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>圣诞大作战</title>
+    <!-- 优先使用webkit内核渲染 -->
+    <meta name="renderer" content="webkit">
+    <script type="text/javascript" src='../static/js/libs/jquery-3.2.1.min.js'></script>
+    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static/style/style.css">
+    <link rel="stylesheet" type="text/css" href="../static/style/init.css">
+</head>
+
+<body>
+    <div class="main">
+        <ul class="voiceList">
+            <li class="voiceItem voice">
+                <img src="../static/images/voice.png">
+            </li>
+            <li class="voiceItem help">
+                <img src="../static/images/help.png">
+            </li>
+        </ul>
+        <div class="logo">
+            <img src="../static/images/logo.png">
+        </div>
+        <div class="btns">
+            <div class="start">
+                <a href="/views/index.html">
+                    <img src="../static/images/start.png">
+                </a>
+            </div>
+            <div class="rank">
+                <a href="/views/rank.html">
+                    <img src="../static/images/rank.png">
+                </a>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src='../static/js/http.js'></script>
+    <script type="text/javascript" src='../static/js/req.js'></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js "></script>
+    <script src="https://wx.idsbllp.cn/wx-api/share.js "></script>
+    <script>
+    WXSHARE.config({ debug: false });
+    WXSHARE.ready(function() {
+        var option = {
+            title: "分享可以加十次游戏机会哦",
+            link: "https://wx.idsbllp.cn/dynamic/http/cet.redrock.team/UserInitlize.php",
+            imgUrl: 'https://wx.idsbllp.cn/dynamic/http/cet.redrock.team/cet46/images/revise.png',
+            desc: '小伙伴快来参加圣诞活动啊～～～',
+            type: '',
+            success: function() {
+                console.log('分享成功');
+            },
+            cancel: function() {
+                console.log('取消分享');
+            },
+        };
+        wx.onMenuShareTimeline(option);
+        wx.onMenuShareAppMessage(option);
+        wx.onMenuShareQQ(option);
+        wx.onMenuShareWeibo(option);
+        wx.onMenuShareQZone(option);
+    });
+    </script>
+</body>
+
+</html>
