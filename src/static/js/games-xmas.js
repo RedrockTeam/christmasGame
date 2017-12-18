@@ -175,22 +175,22 @@
 					switch (direction) {
 						case 'left':
 							$(enemy).css({
-								left: '-117px'
+								left: '-1.17rem'
 							});
 							break;
 						case 'right':
 							$(enemy).css({
-								right: '-117px'
+								right: '-1.17rem'
 							});
 							break;
 						case 'top':
 							$(enemy).css({
-								top: '-148px'
+								top: '-1.48rem'
 							});
 							break;
 						case 'bottom':
 							$(enemy).css({
-								bottom: '-148px'
+								bottom: '-1.48rem'
 							});
 							break;
 					}
