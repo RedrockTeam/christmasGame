@@ -14,6 +14,13 @@
 }
 
 
+html{
+    height: 100%;
+    width: 100%;
+}
+
+
+
 body{
     height: 100%;
     width: 100%;
@@ -22,6 +29,19 @@ body{
     overflow: hidden;
 }
 
+
+.voiceList{
+    float: right;
+    margin-bottom: -1rem;
+    overflow: hidden;
+}
+
+.voiceItem{
+    float: right;
+    padding: 0.2rem;
+    padding-top: 0rem;
+    text-align: center;
+}
 
 .settings {
     position: absolute;
