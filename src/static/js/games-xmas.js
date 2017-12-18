@@ -123,7 +123,7 @@
 					nowX = currentLeft + endClientX - startClientX;
 					nowY = currentTop + startClientY - endClientY;
 					maxX = innerWidth - parseInt(xMan.css("width")) - 1;
-					maxY = innerHeight - parseInt(xMan.css("height")) - 50;
+					maxY = innerHeight - parseInt(xMan.css("height")) - $(".settings").height();
 
 					if (nowX < 0) {
 						nowX = 0;
