@@ -193,5 +193,47 @@ body{
 }
 
 .placeList{
-    
+    position: relative;
+    width: 80%;
+    margin: 0 auto;
+    height: 15.86rem;
+    top: -21.15rem;
+}
+
+.placeItem{
+    height: 1.057rem;
+    width: 86%;
+    margin: 0 auto;
+    line-height: 1.057rem;
+}
+
+.placeImg{
+    position: relative;
+    display: inline-block;
+    width: 0.72rem;
+    height: 0.72rem;
+    border-radius: 0.36rem;
+    overflow: hidden;
+}
+
+.placeImg img{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0.72rem;
+    height: 0.72rem;
+}
+
+.placeNickname{
+    display: inline-block;
+    width: 3.6rem;
+    height: 0.72rem;
+    line-height: 0.72rem;
+    padding-left: 0.4rem;
+}
+
+.nicknameword{
+    display: table-cell;
+    font-size: 0.3rem;
+    color: #25a5e9; 
 }
