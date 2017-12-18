@@ -32,7 +32,7 @@ body{
 
 .voiceList{
     float: right;
-    margin-bottom: -1rem;
+    margin-top: 0.4rem;
     overflow: hidden;
 }
 
@@ -87,18 +87,33 @@ body{
     z-index: 10000;
 }
 
+.control img{
+    width: 100%;
+    height: 100%;
+}
+
 .over {
     position: relative;
     display: none;
     margin: 0 auto;
-    top: -10.5rem;
+    top: -11.5rem;
     width: 6.08rem;
     height: 6.53rem;
     z-index: 1000;
 }
 
+.over img{
+    width: 100%;
+    height: 100%;
+}
+
 .close {
     position: absolute;
+}
+
+.btn{
+    width: 2.48rem;
+    height: 1.12rem;
 }
 
 .btnsList {
@@ -110,14 +125,21 @@ body{
 }
 
 .time {
+    width: 4.0rem;
     position: relative;
+    margin-top: 0.1rem;
     display: inline-block;
     padding-left: 0.3rem;
 }
 
+.time img{
+    width: 100%;
+    height: 100%;
+}
+
 .seconds {
     position: absolute;
-    top: 0.3rem;
+    top: 0.33rem;
     left: 1.0rem;
     width: 60%;
     height: 60%;
@@ -135,6 +157,16 @@ body{
     font-size: 0.5rem;
     color: #e95d55;
     font-family: b;
+}
+
+.voice img{
+    width: 0.78rem;
+    height: 0.78rem;
+}
+
+.help img{
+    width: 0.78rem;
+    height: 0.78rem;
 }
 
 .place{
