@@ -43,9 +43,9 @@
 				$(control).attr("class", "control");
 				$(control).append(father);
 				this.context.container.append(control);
-				this.enemyTimer = setInterval(function() {
-					this.makeEnemy(3, 'left');
-					this.makeEnemy(3, "right");
+				window.enemyTimer = setInterval(function() {
+					this.makeEnemy(2, 'left');
+					this.makeEnemy(2, "right");
 					this.makeEnemy(3, "top")
 				}.bind(this), 4000);
 
@@ -54,9 +54,16 @@
 				this.scoreTimer = setInterval(function() {
 					if (this.character.point > 15 && this.character.point < 30) {
 						this.makeBuff("red");
+						clearInterval(window.enemyTimer);
+						window.enemyTimer = setInterval(function(){
+							this.makeEnemy(4, 'left');
+							this.makeEnemy(4, "right");
+							this.makeEnemy(3, "top")
+						}.bind(this), 4000)
 					}
 					if (this.character.point > 30) {
 						this.makeBuff("gold");
+
 					}
 				}.bind(this), 7000)
 				this.hitTimer = setInterval(function() {
@@ -88,7 +95,7 @@
 				$(".settings").css("display", "none");
 				$(".game-container").addClass('game-over');
 				clearInterval(this.scoreTimer);
-				clearInterval(this.enemyTimer);
+				clearInterval(window.enemyTimer)
 				clearInterval(this.hitTimer);
 				clearInterval(window.timeTimer);
 				$(".point").html(this.showPoint(this.character.point));				
