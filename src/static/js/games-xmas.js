@@ -44,21 +44,21 @@
 				$(control).append(father);
 				this.context.container.append(control);
 				this.enemyTimer = setInterval(function() {
-					this.makeEnemy(2, 'left');
-					this.makeEnemy(3, "top");
-					this.makeEnemy(2, "right");
-				}.bind(this), 5000);
+					this.makeEnemy(3, 'left');
+					this.makeEnemy(3, "right");
+					this.makeEnemy(3, "top")
+				}.bind(this), 4000);
+
 				this.bindSantaClausMove("control");
 				this.pointTimer();
 				this.scoreTimer = setInterval(function() {
-					if (this.character.point > 0 && this.character.point < 30) {
-
-						this.makeBuff("gold");
+					if (this.character.point > 15 && this.character.point < 30) {
+						this.makeBuff("red");
 					}
 					if (this.character.point > 30) {
-						this.makeBuff("gold")
+						this.makeBuff("gold");
 					}
-				}.bind(this), 10000)
+				}.bind(this), 7000)
 				this.hitTimer = setInterval(function() {
 					for (var j = 0; j < $(".enemy").length; j++) {
 						if (this.gameStatusTrigger($(".control"), $(".enemy")[j])) {
@@ -238,7 +238,7 @@
 					}
 					// 下一次普通速度
 					if (true){
-						return this.moveEnemy(enemy, 2, direction);
+						return this.moveEnemy(enemy, 5, direction);
 					}
 					// 下一次判断进入范围加速
 					// if (){
@@ -271,7 +271,7 @@
 				$(buff).css({
 					left: _.random(0, innerWidth - 57) + 'px'
 				});
-				this.moveEnemy(buff, 2, "top");
+				this.moveEnemy(buff, 4, "top");
 			}
 
 			/**
