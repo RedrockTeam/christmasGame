@@ -8,8 +8,8 @@ function getApi(key){
     var apis = {};
 
     
-    apis['POST-POINT'] = 'http://2pvb9t.natappfree.cc/servlet/save';
-    apis['GET-RANK'] = 'http://2pvb9t.natappfree.cc/servlet/getrank';
+    apis['POST-POINT'] = 'http://vz6mh3.natappfree.cc/servlet/save';
+    apis['GET-RANK'] = 'http://vz6mh3.natappfree.cc/servlet/getrank';
 
     return apis[key]
 

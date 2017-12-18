@@ -3,6 +3,26 @@
     src: url(../images/font/HYZhuZiMuTouRenW.ttf);
 }
 
+@font-face {
+    font-family: a;
+    src: url(../images/font/a.ttf);
+}
+
+@font-face {
+    font-family: b;
+    src: url(../images/font/b.ttf);
+}
+
+
+body{
+    height: 100%;
+    width: 100%;
+    background: url(../images/indexbg.png) no-repeat;
+    background-size: 100%;   
+    overflow: hidden;
+}
+
+
 .settings {
     position: absolute;
     width: 100%;
@@ -40,7 +60,7 @@
 
 .control {
     position: absolute;
-    top: 5rem;
+    bottom: 5rem;
     left: 4rem;
     width: 1.4rem;
     height: 2.06rem;
@@ -87,6 +107,32 @@
     color: #f1fffe;
     letter-spacing: 0.05rem;
     font-family: fontone;
+}
+
+.place,
+.point{
+    position: absolute;
+    font-size: 0.5rem;
+    color: #e95d55;
+    font-family: b;
+}
+
+.place{
+    width: 0.6rem;
+    height: 0.8rem;
+    top: 2.66rem;
+    left: 3.86rem;
+    text-align: center;
+    line-height: 0.8rem;
+}
+
+.point{
+    width: 1.6rem;
+    height: 0.6rem;
+    top: 3.44rem;
+    left: 2.68rem;
+    text-align: center;
+    line-height: 0.6rem;
 }
 
 .again {

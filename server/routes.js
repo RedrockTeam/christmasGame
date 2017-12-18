@@ -8,4 +8,7 @@ module.exports = function(app, dirPath) {
     app.get('/index', function(req, res) {
         res.sendFile(dirPath + '/src/views/index.html');
     })
+    app.get('/rank', function(req, res){
+        res.sendFile(dirPath + '/src/views/rank.html');
+    })
 }

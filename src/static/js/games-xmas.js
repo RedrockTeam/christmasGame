@@ -90,9 +90,9 @@
 				clearInterval(this.scoreTimer);
 				clearInterval(this.enemyTimer);
 				clearInterval(this.hitTimer);
-				// console.log(this.character.point);
 				clearInterval(window.timeTimer);
-				this.callback(this.character.point);
+				$(".point").html(this.showPoint(this.character.point));				
+				postPoint(this.character.point);
 				this.pointTimer(1);
 				$(".again").on('click', function() {
 					this.startGame();
@@ -113,16 +113,16 @@
 					startClientX = event.touches[0].clientX;
 					startClientY = event.touches[0].clientY;
 					currentLeft = parseFloat(xMan.css("left"));
-					currentTop = parseFloat(xMan.css("top"));
+					currentTop = parseFloat(xMan.css("bottom"));
 				}
 
 				var touchmove = function(event) {
 					endClientX = event.touches[0].clientX;
 					endClientY = event.touches[0].clientY;
 					nowX = currentLeft + endClientX - startClientX;
-					nowY = currentTop + endClientY - startClientY;
+					nowY = currentTop + startClientY - endClientY;
 					maxX = innerWidth - parseInt(xMan.css("width")) - 1;
-					maxY = innerHeight - parseInt(xMan.css("height"));
+					maxY = innerHeight - parseInt(xMan.css("height")) - 150;
 
 					if (nowX < 0) {
 						nowX = 0;
@@ -136,7 +136,7 @@
 					}
 
 					xMan.css("left", nowX);
-					xMan.css("top", nowY);
+					xMan.css("bottom", nowY);
 				}
 				xMan[0].addEventListener("touchstart", touchstart);
 				xMan[0].addEventListener("touchmove", touchmove);
@@ -161,7 +161,7 @@
 					// 如果是左右的话，那么在Y轴上生成随机位置
 					if (_.includes(['left', 'right'], direction)) {
 						$(enemy).css({
-							top: _.random(8) * perWidth + 'px'
+							top: _.random(2,8) * perWidth + 'px'
 						});
 					}
 					// 如果是上下的话，那么在X轴上生成随机位置
@@ -315,9 +315,7 @@
 							ms = 0;
 							s++;
 						}
-						this.showPoint(score);
-						// console.log(score);
-						
+						$(".seconds").html(this.showPoint(score));	
 					}.bind(this), 10)
 
 				} 
@@ -344,7 +342,7 @@
 					scoreAfter = a[1];
 				}
 				var time = scoreBefore + '″' + scoreAfter;
-				$(".seconds").html(time);
+				return time;
 			}
 
 

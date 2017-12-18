@@ -1,35 +1,11 @@
 <!DOCTYPE html>
 <html>
-<script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js "></script>
-<script src="https://wx.idsbllp.cn/wx-api/share.js "></script>
-<script>
-WXSHARE.config({ debug: false });
-WXSHARE.ready(function() {
-    var option = {
-        title: "分享可以加十次游戏机会哦",
-        link: "https://wx.idsbllp.cn/dynamic/http/cet.redrock.team/UserInitlize.php",
-        imgUrl: 'https://wx.idsbllp.cn/dynamic/http/cet.redrock.team/cet46/images/revise.png',
-        desc: '小伙伴快来参加预存活动啊～～～',
-        type: '',
-        success: function() {
-            console.log('分享成功');
-        },
-        cancel: function() {
-            console.log('取消分享');
-        },
-    };
-    wx.onMenuShareTimeline(option);
-    wx.onMenuShareAppMessage(option);
-    wx.onMenuShareQQ(option);
-    wx.onMenuShareWeibo(option);
-    wx.onMenuShareQZone(option);
-});
-</script>
 
 <head>
     <title>圣诞大作战</title>
     <!-- 优先使用webkit内核渲染 -->
     <meta name="renderer" content="webkit">
+    <meta charset="utf-8">
     <script type="text/javascript" src='../static/js/helper.js'></script>
     <script type="text/javascript">
     // 初始化REM大小
@@ -59,9 +35,11 @@ WXSHARE.ready(function() {
     </div>
     <div class="over">
         <img src="../static/images/over.png">
+        <span class="place"></span>
+        <span class="point">10</span>
         <ul class="btnsList">
             <li class="btn viewrank">
-                <a href="#">
+                <a href="./rank">
                     <img src="../static/images/viewrank.png">
                 </a>
             </li>
@@ -70,28 +48,42 @@ WXSHARE.ready(function() {
             </li>
         </ul>
     </div>
+
+
+    
     <script type="text/javascript" src='../static/js/libs/jquery-3.2.1.min.js'></script>
     <script type="text/javascript" src='../static/js/libs/lodash.js'></script>
     <script type="text/javascript" src='../static/js/http.js'></script>
+    <script type="text/javascript" src='../static/js/req.js'></script>
     <script type="text/javascript" src='../static/js/games-xmas.js'></script>
     <script type="text/javascript">
-    function postPoint(point) {
-        var req = packReq('POST-POINT', 'POST', null, { point: point });
-        request(req, function(data) {
-            console.log(data);
-        });
-    }
-
-    function getUrlParam(name) {
-        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
-        var r = window.location.search.substr(1).match(reg); //匹配目标参数
-        if (r != null) return unescape(r[2]);
-        return null; //返回参数值
-    }
-
-    var openid = getUrlParam("openid");
     // 开始游戏
     $.xMas('#game-container');
+    </script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js "></script>
+    <script src="https://wx.idsbllp.cn/wx-api/share.js "></script>
+    <script>
+    WXSHARE.config({ debug: false });
+    WXSHARE.ready(function() {
+        var option = {
+            title: "分享可以加十次游戏机会哦",
+            link: "https://wx.idsbllp.cn/dynamic/http/cet.redrock.team/UserInitlize.php",
+            imgUrl: 'https://wx.idsbllp.cn/dynamic/http/cet.redrock.team/cet46/images/revise.png',
+            desc: '小伙伴快来参加预存活动啊～～～',
+            type: '',
+            success: function() {
+                console.log('分享成功');
+            },
+            cancel: function() {
+                console.log('取消分享');
+            },
+        };
+        wx.onMenuShareTimeline(option);
+        wx.onMenuShareAppMessage(option);
+        wx.onMenuShareQQ(option);
+        wx.onMenuShareWeibo(option);
+        wx.onMenuShareQZone(option);
+    });
     </script>
 </body>
 
