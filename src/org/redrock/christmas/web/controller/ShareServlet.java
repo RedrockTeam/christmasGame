@@ -19,20 +19,18 @@ public class ShareServlet extends HttpServlet{
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //share success
+        UserDaoImpl dao = new UserDaoImpl();
         HttpSession session = req.getSession();
-//        String openid = String.valueOf(session.getAttribute("openid"));//获取用户openid
-        String openid = "ouRCyjpYbjwuHt2n7CjpOPnh0Spc";
+        User user = dao.find((String) session.getAttribute("openid"));
 //        String oursecret = req.getParameter("secret");
 //        if(oursecret == "xxxxx") {
-            UserDaoImpl dao = new UserDaoImpl();
-            User ruser = dao.find(openid);
-            if(ruser.getShare() == 0) {
-                ruser.setShare(1);
-                ruser.setCount(ruser.getCount() + 10);
-                dao.update(ruser);
-            } else {
-                //...
+
+            if(user.getShare() == 0) {
+                user.setShare(1);
+                user.setCount(user.getCount() + 10);
+                dao.update(user);
             }
+            session.setAttribute("user",user);
 //        } else {
 //            //???
 //        }

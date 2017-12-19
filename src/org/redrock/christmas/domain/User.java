@@ -87,20 +87,8 @@ public class User {
     int count;
     String date;
     int share;
-
-
-
     int rank;
 
-    /**
-     * 调用接口检查是否绑定了小帮手
-     * @return
-     */
-    public String stuInfo(){
-        String url = "https://wx.idsbllp.cn/MagicLoop/index.php?s=/addon/UserCenter/UserCenter/getStuInfoByOpenId&openId="+this.getOpenid();
-        String res = CurlUtil.getContent(url,null,"GET");
-        return res;
-    }
 
     /**
      * 从rank表更新user的rank

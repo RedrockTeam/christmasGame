@@ -37,7 +37,7 @@ public class UserDaoImpl implements IUserDao{
      * @return
      */
     @Override
-    public boolean add(User user) {
+    public synchronized boolean add(User user) {
         String reg="insert into users(openid , nickname , score , imgurl , counts , share , dates)  values(?,?,?,?,20,0,?)";
 
         try
@@ -63,7 +63,7 @@ public class UserDaoImpl implements IUserDao{
      * @return
      */
     @Override
-    public User find(String openid) {
+    public synchronized User find(String openid) {
         try {
             String sql="select * from  users where openid= ?;";
             PreparedStatement pstmt=conn.prepareStatement(sql);
@@ -96,7 +96,7 @@ public class UserDaoImpl implements IUserDao{
      * @return
      */
     @Override
-    public boolean update(User user) {
+    public synchronized boolean update(User user) {
         String reg="UPDATE users SET score = ? , imgurl = ? , nickname = ? , counts = ? , dates = ? , share = ?  WHERE openid = ?;";
 
         User ruser = find(user.getOpenid());
@@ -128,7 +128,7 @@ public class UserDaoImpl implements IUserDao{
      */
 
     @Override
-    public ResultSet getRank() {
+    public synchronized ResultSet getRank() {
         String sql = "select * from (select *, (@rank := @rank + 1)rank from (select openid , nickname, imgurl from users order by score DESC)t, (select @rank := 0)a)b ;";
         try {
             Statement stmt = conn.createStatement();

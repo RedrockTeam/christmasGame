@@ -26,6 +26,8 @@ public class GetRankServlet extends HttpServlet {
         int all = 1;
         int rank = 0;
         HttpSession session = req.getSession();
+        String openid = (String) session.getAttribute("openid");
+        User user = dao.find(openid);
         if(rs == null){//检查是否返回了rank表
             Map<String , Object> jsonObject = new HashMap<>();
             jsonObject.put("data" , null);
@@ -37,12 +39,8 @@ public class GetRankServlet extends HttpServlet {
             Map<String, Object> data = new HashMap<>();
             try {
                 while (rs.next()){//循环加入每个用户的rank信息  如果数量大于50就退出
-//                    if(rs.getString("openid").equals(String.valueOf(session.getAttribute("openid")))){
-                    if(rs.getString("openid").equals("ouRCyjpYbjwuHt2n7CjpOPnh0Spc")){//测试
-                        rank = rs.getInt("rank");
-                    }
+                    if(rs.getString("openid").equals(openid)) { rank = rs.getInt("rank"); }
                     Map<String , Object> person = new HashMap<>();
-                    person.put("openid",rs.getString("openid"));
                     person.put("nickname" , rs.getString("nickname"));
                     person.put("imgurl" , rs.getString("imgurl"));
                     person.put("rank",rs.getInt("rank"));
@@ -53,13 +51,13 @@ public class GetRankServlet extends HttpServlet {
                         break;
                     }
                 }
-//                User user = dao.find(String.valueOf(session.getAttribute("openid")));
-                User user = dao.find("ouRCyjpYbjwuHt2n7CjpOPnh0Spc");
+                resp.setHeader("Access-Control-Allow-Origin" , "*");
+                user.setRank(rank);
                 Map<String , Object> person = new HashMap<>();
-                person.put("openid",user.getOpenid());
                 person.put("nickname" , user.getNickname());
                 person.put("imgurl" ,user.getImgurl());
                 person.put("rank",rank);
+                session.setAttribute("user", user );
                 data.put("my" , person);
                 jsonObject.put("data" , data);
                 jsonObject.put("msg","ok");
@@ -69,8 +67,5 @@ public class GetRankServlet extends HttpServlet {
                 e.printStackTrace();
             }
         }
-
-
-
     }
 }

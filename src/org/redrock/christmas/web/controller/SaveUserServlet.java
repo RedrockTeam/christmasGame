@@ -23,45 +23,32 @@ import java.util.Map;
 public class SaveUserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        User user = new User();
         HttpSession session = req.getSession();
-//        user.setOpenid(String.valueOf(session.getAttribute("openid")));//获取用户openid
-        user.setOpenid("ouRCyjpYbjwuHt2n7CjpOPnh0Spc");
-        user.setScore(Integer.parseInt(req.getParameter("score")));//获取传入的score
+//        User user = (User) session.getAttribute("user");
+        String openid = (String) session.getAttribute("openid");
+        String score = req.getParameter("score");
+        UserDaoImpl dao = new UserDaoImpl();
+        User user = dao.find(openid);
 //        String oursecret = req.getParameter("secret");//获取secret
 //        if (oursecret == "xxxxx") {
-            UserDaoImpl dao = new UserDaoImpl();
-            User ruser = dao.find(user.getOpenid());//获取该用户数据库信息
-            if (ruser != null) {
-                ruser.setCount(ruser.getCount() - 1);//先减少游戏次数
-                if (ruser.getScore() < user.getScore()) {//如果score比用户数据库信息高
-                    ruser.setScore(user.getScore());//刷新分数
-                }
-                dao.update(ruser);
-                ResultSet rs = dao.getRank();//刷新排名
-                ruser.Rankinfo(rs);
-            } else {
-                //似乎不可能  但是考虑空openid进来的话还是要避免操作数据库
-                Map<String, Object> jsonObject = new HashMap<>();
-                jsonObject.put("msg", "未保存的openid");
-                jsonObject.put("status", "400");
-                jsonObject.put("data", null);
-                JsonUtil.json(resp, jsonObject);
-            }
-            //json返回
-            Map<String, Object> jsonObject = new HashMap<>();
-            Map<String, Object> data = new HashMap<>();
-            data.put("openid", ruser.getOpenid());
-            data.put("nickname", ruser.getNickname());
-            data.put("imgurl", ruser.getImgurl());
-            data.put("rank", ruser.getRank());
-            jsonObject.put("status", 200);
-            jsonObject.put("msg", "ok");
-            jsonObject.put("data", data);
-            JsonUtil.json(resp, jsonObject);
-//        } else {
-//            //???
-//        }
+        user.setCount(user.getCount() - 1);//先减少游戏次数
+        if (user.getScore() < Integer.parseInt(score)) {
+            user.setScore(Integer.parseInt(score));//获取传入的score
+            dao.update(user);
+            ResultSet rs = dao.getRank();//刷新排名
+            user.Rankinfo(rs);
+        }
+        //json返回
+        resp.setHeader("Access-Control-Allow-Origin" , "*");
+        session.setAttribute("user", user);
+        Map<String, Object> jsonObject = new HashMap<>();
+        Map<String, Object> data = new HashMap<>();
+        data.put("nickname", user.getNickname());
+        data.put("imgurl", user.getImgurl());
+        data.put("rank", user.getRank());
+        jsonObject.put("status", 200);
+        jsonObject.put("msg", "ok");
+        jsonObject.put("data", data);
+        JsonUtil.json(resp, jsonObject);
     }
 }

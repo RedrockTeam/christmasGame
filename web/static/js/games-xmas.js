@@ -34,6 +34,7 @@
 
 			// 开始游戏
 			this.startGame = function() {
+        		getUser();
 				var control = document.createElement("div");
 				var father = document.createElement("img");
 				$(".over").css("display", "none");
@@ -43,32 +44,31 @@
 				$(control).attr("class", "control");
 				$(control).append(father);
 				this.context.container.append(control);
+				this.bindSantaClausMove("control");
+				// $("body").animate({
+				// 	backgroundPositionY: "-38rem"},
+				// 	8000, function() {
+						
+				// });
+				this.pointTimer();
 				window.enemyTimer = setInterval(function() {
-					this.makeEnemy(2, 'left');
-					this.makeEnemy(2, "right");
+					this.makeEnemy(4, 'left');
+					this.makeEnemy(4, "right");
 					this.makeEnemy(3, "top")
 				}.bind(this), 4000);
 
-				this.bindSantaClausMove("control");
-				this.pointTimer();
 				this.scoreTimer = setInterval(function() {
 					if (this.character.point > 15 && this.character.point < 30) {
 						this.makeBuff("red");
-						clearInterval(window.enemyTimer);
-						window.enemyTimer = setInterval(function(){
-							this.makeEnemy(4, 'left');
-							this.makeEnemy(4, "right");
-							this.makeEnemy(3, "top")
-						}.bind(this), 4000)
 					}
 					if (this.character.point > 30) {
 						this.makeBuff("gold");
-
 					}
 				}.bind(this), 7000)
+
 				this.hitTimer = setInterval(function() {
 					for (var j = 0; j < $(".enemy").length; j++) {
-						if (this.gameStatusTrigger($(".control"), $(".enemy")[j])) {
+						if (this.gameStatusTrigger($(".control"), $(".enemy")[j], 0)) {
 							if (this.character.whosYourDaddy == true) {
 								$(".enemy")[j].remove();
 							} else {
@@ -77,7 +77,7 @@
 						}
 					}
 
-					if (this.gameStatusTrigger($(".control"), $(".gold"))) {
+					if (this.gameStatusTrigger($(".control"), $(".gold"),0)) {
 						this.character.whosYourDaddy = true;
 						$(".gold").remove();
 						this.cancelBuff("gold", 3000);
@@ -101,9 +101,7 @@
 				$(".point").html(this.showPoint(this.character.point));				
 				postPoint(this.character.point);
 				this.pointTimer(1);
-				$(".again").on('click', function() {
-					this.startGame();
-				}.bind(this));
+				
 			}
 
 
@@ -244,14 +242,13 @@
 					if (parseInt($(enemy).css("left")) > innerWidth || parseInt($(enemy).css("right")) > innerWidth || parseInt($(enemy).css("top")) > innerHeight || parseInt($(enemy).css("bottom")) > innerHeight) {
 						this.destroyEnemy(enemy);
 					}
-					// 下一次普通速度
-					if (true){
-						return this.moveEnemy(enemy, 5, direction);
+					
+					if (this.gameStatusTrigger($(".control"), $(enemy), true)){
+						$(enemy).addClass('enemy-fast');
+						return this.moveEnemy(enemy, 8, direction);
 					}
-					// 下一次判断进入范围加速
-					// if (){
-
-					// }
+					$(enemy).removeClass('enemy-fast');
+					return this.moveEnemy(enemy, 5, direction);
 
 				}.bind(this), 10)
 			}
@@ -361,7 +358,7 @@
 			 * @param  {[type]}  hitObj [被撞物体]
 			 * @return {[type]} true [触发]
 			 */
-			this.gameStatusTrigger = function(item, hitObj) {
+			this.gameStatusTrigger = function(item, hitObj, accelerate) {
 				if (item.length == 0 || hitObj.length == 0) {
 					return;
 				}
@@ -376,10 +373,23 @@
 					hitFoot = $(hitObj).offset().top + $(hitObj).height(),
 					hitLeft = $(hitObj).offset().left,
 					hitRight = $(hitObj).offset().left + $(hitObj).width();
-				if (itemFoot > hitTop && itemRight > hitLeft && itemTop < hitFoot && itemLeft < hitRight) {
-					return true;
+
+				if (accelerate) {
+					if (itemFoot + 150 > hitTop && itemRight + 150 > hitLeft && itemTop < hitFoot + 150  && itemLeft < hitRight + 150) {
+						console.log(1111111);
+						return true;
+					}
+					return false;
+				}else{
+					if (itemFoot > hitTop && itemRight > hitLeft && itemTop < hitFoot && itemLeft < hitRight) {
+						return true;
+					}
+					return false;
 				}
 			}
+			$(".again").on('click', function() {
+					this.startGame();
+				}.bind(this));
 			this.startGame();
 		}
 
