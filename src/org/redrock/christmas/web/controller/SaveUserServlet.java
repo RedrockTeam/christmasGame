@@ -34,10 +34,10 @@ public class SaveUserServlet extends HttpServlet {
         user.setCount(user.getCount() - 1);//先减少游戏次数
         if (user.getScore() < Integer.parseInt(score)) {
             user.setScore(Integer.parseInt(score));//获取传入的score
-            dao.update(user);
-            ResultSet rs = dao.getRank();//刷新排名
-            user.Rankinfo(rs);
         }
+        ResultSet rs = dao.getRank();//刷新排名
+        user.Rankinfo(rs);
+        dao.update(user);
         //json返回
         resp.setHeader("Access-Control-Allow-Origin" , "*");
         session.setAttribute("user", user);

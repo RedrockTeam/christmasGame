@@ -7,10 +7,12 @@
 function getApi(key){
     var apis = {};
 
-    
-    apis['POST-POINT'] = 'http://localhost:8080/servlet/save';
-    apis['GET-RANK'] = 'http://localhost:8080/servlet/getrank';
-    
+
+    apis['POST-POINT'] = 'http://3s885z.natappfree.cc/servlet/save';
+    apis['GET-RANK'] = 'http://3s885z.natappfree.cc/servlet/getrank';
+    apis['USER-INFO'] = 'http://3s885z.natappfree.cc/servlet/userinfo';
+    apis['SHARE'] = 'http://3s885z.natappfree.cc/servlet/share';
+
 
     return apis[key]
 

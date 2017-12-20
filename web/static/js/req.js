@@ -23,14 +23,14 @@ function getRank() {
             $(placeImg).attr("class", "placeImg");
             $(placeNickname).attr("class", "placeNickname");
             $(".placeList").append(placeItem)
-            placeItem.append(placeImg);
-            placeItem.append(placeNickname);
+            $(placeItem).append(placeImg);
+            $(placeItem).append(placeNickname);
             var img = document.createElement("img"),
                 span = document.createElement("span");
             $(span).attr("class", "nicknameword")
             $(img).attr("src", rankimgurl);
-            placeNickname.append(span);
-            placeImg.append(img);
+            $(placeNickname).append(span);
+            $(placeImg).append(img);
             $(span).html(ranknickname);
         }
     })
@@ -56,7 +56,7 @@ function getUser(){
         var count = data.data.count;
         if(count < 0){
             console.log(1);
-            window.location.href='/'
+            window.location.href='/index'
             alert("游戏次数已经用完");
         }
 
