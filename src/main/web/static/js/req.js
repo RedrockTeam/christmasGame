@@ -55,12 +55,11 @@ function getUser(){
     request(req, function(data){
         var count = data.data.count;
         if(count < 0){
-            console.log(1);
             window.location.href='/index'
             alert("游戏次数已经用完");
+        }else {
+            alert("你还有" + count + "次游戏次数");
         }
-
-        alert("你还有"+count+"次游戏次数");
     })
 }
 
