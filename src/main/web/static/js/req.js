@@ -7,8 +7,6 @@ function getRank() {
         $(".myimg").html('<img src=' + myimg + '>');
         $(".nickname-info").html(mynickname);
         $(".place").html(myrank);
-        console.log(data);
-        console.log(data.data);
         var rankdata = data.data;
 
         for (var i = 1; i < 16; i++) {
@@ -42,31 +40,33 @@ function postPoint(point) {
     var req = packReq('POST-POINT', 'POST', null, {
         score: parseInt(point * 100)
     });
-    console.log(req.payload.score);
+    // console.log(req.payload.score);
     request(req, function(data) {
         var rank = data.data.rank;
         $(".place").html(rank);
-        console.log(rank);
+        // console.log(data);
     });
 }
 
-function getUser(){
+function getUser() {
     var req = packReq('USER-INFO', 'GET', null, null);
-    request(req, function(data){
+    request(req, function(data) {
         var count = data.data.count;
-        if(count < 0){
-            window.location.href='/index'
+        if (count == 0) {
+            window.location.href = '/';
             alert("游戏次数已经用完");
-        }else {
+        } else {
+
             alert("你还有" + count + "次游戏次数");
         }
+
     })
 }
 
 
-function share(){
+function share() {
     var req = packReq('SHARE', 'POST', null, null);
-    request(req, function(){
+    request(req, function() {
         console.log(success);
     })
 }

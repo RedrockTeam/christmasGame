@@ -7,11 +7,11 @@
 function getApi(key){
     var apis = {};
 
-
-    apis['POST-POINT'] = 'http://3s885z.natappfree.cc/servlet/save';
-    apis['GET-RANK'] = 'http://3s885z.natappfree.cc/servlet/getrank';
-    apis['USER-INFO'] = 'http://3s885z.natappfree.cc/servlet/userinfo';
-    apis['SHARE'] = 'http://3s885z.natappfree.cc/servlet/share';
+    
+    apis['POST-POINT'] = 'http://zxgfab.natappfree.cc/servlet/save';
+    apis['GET-RANK'] = 'http://zxgfab.natappfree.cc/servlet/getrank';
+    apis['USER-INFO'] = 'http://zxgfab.natappfree.cc/servlet/userinfo';
+    apis['SHARE'] = 'http://zxgfab.natappfree.cc/servlet/share';
 
 
     return apis[key]

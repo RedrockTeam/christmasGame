@@ -7,7 +7,7 @@
     <!-- 优先使用webkit内核渲染 -->
     <meta name="renderer" content="webkit">
     <script type="text/javascript" src='../static/js/libs/jquery-3.2.1.min.js'></script>
-    <script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+   <script src="../static/js/libs/flexible.js"></script>
     <link rel="stylesheet" type="text/css" href="../static/style/style.css">
     <link rel="stylesheet" type="text/css" href="../static/style/init.css">
 </head>
@@ -27,12 +27,12 @@
         </div>
         <div class="btns">
             <div class="start">
-                <a href="/views/index.html">
+                <a href="./index">
                     <img src="../static/images/start.png">
                 </a>
             </div>
             <div class="rank">
-                <a href="/views/rank.html">
+                <a href="./rank">
                     <img src="../static/images/rank.png">
                 </a>
             </div>
@@ -52,7 +52,9 @@
             desc: '小伙伴快来参加圣诞活动啊～～～',
             type: '',
             success: function() {
+                share();
                 console.log('分享成功');
+
             },
             cancel: function() {
                 console.log('取消分享');

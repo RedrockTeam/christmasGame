@@ -17,7 +17,7 @@
 			// 游戏运行环境
 			this.context = {
 				// 敌对
-				enemySpeed: 3,
+				enemySpeed: 0.03,
 				container: $(container),
 				// 普通苹果BUFF，每15秒到30秒掉落一次
 				speedBuff: [15, 30],
@@ -34,7 +34,7 @@
 
 			// 开始游戏
 			this.startGame = function() {
-        		getUser();
+				getUser();
 				var control = document.createElement("div");
 				var father = document.createElement("img");
 				$(".over").css("display", "none");
@@ -45,16 +45,11 @@
 				$(control).append(father);
 				this.context.container.append(control);
 				this.bindSantaClausMove("control");
-				// $("body").animate({
-				// 	backgroundPositionY: "-38rem"},
-				// 	8000, function() {
-						
-				// });
 				this.pointTimer();
 				window.enemyTimer = setInterval(function() {
-					this.makeEnemy(4, 'left');
-					this.makeEnemy(4, "right");
-					this.makeEnemy(3, "top")
+					this.makeEnemy(3, 'left');
+					// this.makeEnemy(3, "right");
+					this.makeEnemy(3, "top");
 				}.bind(this), 4000);
 
 				this.scoreTimer = setInterval(function() {
@@ -64,11 +59,11 @@
 					if (this.character.point > 30) {
 						this.makeBuff("gold");
 					}
-				}.bind(this), 7000)
+				}.bind(this), 9000)
 
 				this.hitTimer = setInterval(function() {
 					for (var j = 0; j < $(".enemy").length; j++) {
-						if (this.gameStatusTrigger($(".control"), $(".enemy")[j], 0)) {
+						if (this.gameStatusTrigger($(".control"), $(".enemy")[j])) {
 							if (this.character.whosYourDaddy == true) {
 								$(".enemy")[j].remove();
 							} else {
@@ -77,7 +72,7 @@
 						}
 					}
 
-					if (this.gameStatusTrigger($(".control"), $(".gold"),0)) {
+					if (this.gameStatusTrigger($(".control"), $(".gold"))) {
 						this.character.whosYourDaddy = true;
 						$(".gold").remove();
 						this.cancelBuff("gold", 3000);
@@ -98,10 +93,10 @@
 				clearInterval(window.enemyTimer)
 				clearInterval(this.hitTimer);
 				clearInterval(window.timeTimer);
-				$(".point").html(this.showPoint(this.character.point));				
+				$(".point").html(this.showPoint(this.character.point));
 				postPoint(this.character.point);
 				this.pointTimer(1);
-				
+
 			}
 
 
@@ -154,48 +149,33 @@
 			 * @param  {[type]} direction [方向 left, right, top, bottom]
 			 */
 			this.makeEnemy = function(numbers, direction) {
-				// var remSizeCover = parseFloat(document.documentElement.style.fontSize);
-				var perWidth = 117;
-				var perHeight = 148;
-
-
-
+				var perWidth = 1.17;
+				var perHeight = 1.48;
 				// 循环生成敌人
 				for (i = 0; i < numbers; i++) {
 					var enemy = document.createElement("div");
 					$(enemy).attr('class', 'enemy ' + direction);
-					// 如果是左右的话，那么在Y轴上生成随机位置
-					if (_.includes(['left', 'right'], direction)) {
-						$(enemy).css({
-							top: _.random(2,8) * perWidth + 'px'
-						});
-					}
-					// 如果是上下的话，那么在X轴上生成随机位置
-					if (_.includes(['top', 'bottom'], direction)) {
-						$(enemy).css({
-							left: _.random(4) * perHeight + 'px'
-						});
-					}
 					// 初始上下左右位置
 					switch (direction) {
 						case 'left':
+							random = parseFloat(_.random(1, 10) * perHeight).toFixed(2);
+							// console.log(random);
+
 							$(enemy).css({
-								left: '-1.17rem'
+								transform: "translate(-1.17rem," + random + "rem)"
 							});
 							break;
 						case 'right':
+							random = parseFloat(_.random(1, 10) * perHeight).toFixed(2);
+							r = parseFloat(iw.toFixed(2) + 1.17);
 							$(enemy).css({
-								right: '-1.17rem'
+								transform: 'translate(' + r + 'rem,' + random + 'rem)'
 							});
 							break;
 						case 'top':
+							random = parseFloat(_.random(1, 7) * perWidth).toFixed(2);
 							$(enemy).css({
-								top: '-1.48rem'
-							});
-							break;
-						case 'bottom':
-							$(enemy).css({
-								bottom: '-1.48rem'
+								transform: 'translate(' + random + 'rem,0.1rem)'
 							});
 							break;
 					}
@@ -213,23 +193,49 @@
 			 * @param  {[type]} direction    [方向]
 			 */
 			this.moveEnemy = function(enemy, displacement, direction) {
+
+				var numberReg = /-?\d+\.?(\d+)?/g;
 				window.setTimeout(function() {
 					// 产生位移
 					switch (direction) {
 						case 'left':
+							offset = ($(enemy)[0].style.transform.match(numberReg));
+							offsetX = parseFloat(offset[0]);
+							offsetY = parseFloat(offset[1]);
+							offsetX += displacement;
+							// console.log(offset);
 							$(enemy).css({
-								left: parseInt($(enemy).css('left')) + displacement + 'px'
+								transform: 'translate(' + offsetX + 'rem,' + offsetY + 'rem)'
 							});
+							if (offsetX > iw) {
+								return this.destroyEnemy(enemy);
+							}
 							break;
 						case 'right':
+							offset = ($(enemy)[0].style.transform.match(numberReg));
+							offsetX = parseFloat(offset[0]);
+							offsetY = parseFloat(offset[1]);
+							offsetX -= displacement;
+							// console.log(offset);
 							$(enemy).css({
-								right: parseInt($(enemy).css('right')) + displacement + 'px'
+								transform: 'translate(' + offsetX + 'rem,' + offsetY + 'rem)'
 							});
+							if (offsetX < -2) {
+								return this.destroyEnemy(enemy);
+							}
 							break;
 						case 'top':
+							offset = ($(enemy)[0].style.transform.match(numberReg));
+							offsetX = parseFloat(offset[0]);
+							offsetY = parseFloat(offset[1]);
+							offsetY += displacement;
+							// console.log(offset)
 							$(enemy).css({
-								top: parseInt($(enemy).css('top')) + displacement + 'px'
+								transform: 'translate(' + offsetX + 'rem,' + offsetY + 'rem)'
 							});
+							if (offsetY > ih) {
+								return this.destroyEnemy(enemy);
+							}
 							break;
 						case 'bottom':
 							$(enemy).css({
@@ -237,20 +243,14 @@
 							});
 							break;
 					}
-
-					// 判断超出屏幕销毁
-					if (parseInt($(enemy).css("left")) > innerWidth || parseInt($(enemy).css("right")) > innerWidth || parseInt($(enemy).css("top")) > innerHeight || parseInt($(enemy).css("bottom")) > innerHeight) {
-						this.destroyEnemy(enemy);
-					}
-					
-					if (this.gameStatusTrigger($(".control"), $(enemy), true)){
+					if (this.gameStatusTrigger($(".control"), $(enemy), true)) {
 						$(enemy).addClass('enemy-fast');
-						return this.moveEnemy(enemy, 8, direction);
+						return this.moveEnemy(enemy, 0.08, direction);
 					}
 					$(enemy).removeClass('enemy-fast');
-					return this.moveEnemy(enemy, 5, direction);
+					return this.moveEnemy(enemy, 0.05, direction);
 
-				}.bind(this), 10)
+				}.bind(this), 8)
 			}
 
 			/**
@@ -269,14 +269,17 @@
 			this.makeBuff = function(type) {
 				var buff = document.createElement("div");
 				var apple = document.createElement("img");
+				var perWidth = 0.6;
+				// console.log(perWidth);
 				$(apple).attr('src', '../static/images/' + type + 'apple.png')
 				$(buff).attr('class', 'buff ' + type);
 				this.context.container.append(buff);
 				buff.append(apple);
+				random = _.random(1, 8) * perWidth;
 				$(buff).css({
-					left: _.random(0, innerWidth - 57) + 'px'
+					transform: "translate(" + random + "rem,-1rem)"
 				});
-				this.moveEnemy(buff, 4, "top");
+				this.moveEnemy(buff, 0.05, "top");
 			}
 
 			/**
@@ -289,7 +292,6 @@
 				if (type == "gold") {
 					var delay = setTimeout(function() {
 						this.character.whosYourDaddy = false;
-						console.log(this.character.whosYourDaddy);
 					}.bind(this), delayTime)
 				}
 
@@ -320,10 +322,10 @@
 							ms = 0;
 							s++;
 						}
-						$(".seconds").html(this.showPoint(score));	
+						$(".seconds").html(this.showPoint(score));
 					}.bind(this), 10)
 
-				} 
+				}
 
 			}
 
@@ -375,21 +377,18 @@
 					hitRight = $(hitObj).offset().left + $(hitObj).width();
 
 				if (accelerate) {
-					if (itemFoot + 150 > hitTop && itemRight + 150 > hitLeft && itemTop < hitFoot + 150  && itemLeft < hitRight + 150) {
-						console.log(1111111);
+					if (itemFoot + 150 > hitTop && itemRight + 150 > hitLeft && itemTop < hitFoot + 150 && itemLeft < hitRight + 150) {
 						return true;
 					}
 					return false;
-				}else{
+				} else {
 					if (itemFoot > hitTop && itemRight > hitLeft && itemTop < hitFoot && itemLeft < hitRight) {
 						return true;
 					}
 					return false;
 				}
 			}
-			$(".again").on('click', function() {
-					this.startGame();
-				}.bind(this));
+
 			this.startGame();
 		}
 
