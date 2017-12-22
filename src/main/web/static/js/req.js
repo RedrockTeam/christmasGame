@@ -9,11 +9,12 @@ function getRank() {
         $(".place").html(myrank);
         var rankdata = data.data;
 
-        for (var i = 1; i < 16; i++) {
-
-            var rankimgurl = rankdata[i].imgurl,
-                ranknickname = rankdata[i].nickname,
-                rank = rankdata[i].rank;
+        // for (var i = 1; i < 16; i++) {
+        for (var rank in rankdata) {
+            if (rank === 'my') continue;
+            var rankimgurl = rankdata[rank].imgurl,
+                ranknickname = rankdata[rank].nickname,
+                rank = rankdata[rank].rank;
             var placeItem = document.createElement("li"),
                 placeImg = document.createElement("div"),
                 placeNickname = document.createElement("div");
