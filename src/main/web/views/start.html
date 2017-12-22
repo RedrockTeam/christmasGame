@@ -8,12 +8,7 @@
     <meta name="renderer" content="webkit">
     <script type="text/javascript" src='../static/js/libs/jquery-3.2.1.min.js'></script>
     <script src="../static/js/libs/flexible.js"></script>
-    <script type="text/javascript">
-        var img = new Image();
-        img.src = '../static/style/thief.png'
-        var img1 = new Image();
-        img1.src = '../static/style/fastthief.png'
-    </script>
+     
     <link rel="stylesheet" type="text/css" href="../static/style/style.css">
     <link rel="stylesheet" type="text/css" href="../static/style/init.css">
 </head>
@@ -22,7 +17,7 @@
     <div class="main">
         <ul class="voiceList">
             <li class="voiceItem voice">
-                <img class='voi' src="../static/images/voice.png" onclick="change(this)">
+                <img src="../static/images/voice.png">
             </li>
             <li class="voiceItem help">
                 <img src="../static/images/help.png">
@@ -44,46 +39,8 @@
             </div>
         </div>
     </div>
-    <div class="kaifa">
-        <div class="help-info">
-            <img src="../static/images/info.png">
-            <div class="close">
-                <img src="../static/images/close.png">
-            </div>
-        </div>
-    </div>
-    <audio id="bgmusic" autoplay="autoplay">
-        <source src="../static/images/music.mp3" type="audio/mp3">
-    </audio>
     <script type="text/javascript" src='../static/js/http.js'></script>
     <script type="text/javascript" src='../static/js/req.js'></script>
-    <script type="text/javascript">
-    var audio = document.getElementById("bgmusic");
-    var src1 = 'http://127.0.0.1/static/images/voice.png';
-    var src2 = 'http://127.0.0.1/static/images/help.png';
-    $('.help').on('click', function() {
-        $(".help-info").css("display", "block");
-        $(".kaifa").addClass('game-over');
-        $(".kaifa").css("zIndex", "10000");
-    })
-    $('.close').on('click', function() {
-        $('.help-info').css("display", 'none');
-        $(".kaifa").removeClass('game-over');
-        $(".kaifa").css("zIndex", "-1")
-    })
-    function change(img) {
-        var s = img.src;
-        console.log(s);
-        if(s == src1){
-            img.src = src2;
-            audio.pause();
-        }
-        if(s == src2){
-            img.src = src1
-            audio.play();
-        }
-    }
-    </script>
     <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js "></script>
     <script src="https://wx.idsbllp.cn/wx-api/share.js "></script>
     <script>
