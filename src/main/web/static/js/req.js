@@ -56,7 +56,6 @@ function getUser() {
             window.location.href = '/';
             alert("游戏次数已经用完");
         } else {
-
             alert("你还有" + count + "次游戏次数");
         }
 

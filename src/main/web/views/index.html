@@ -23,7 +23,7 @@
             </div>
             <ul class="voiceList">
                 <li class="voiceItem voice">
-                    <img src="../static/images/goldvoice.png">
+                    <img src="../static/images/goldvoice.png" onclick="change(this)">
                 </li>
                 <li class="voiceItem help">
                     <img src="../static/images/goldhelp.png">
@@ -48,6 +48,9 @@
             </li>
         </ul>
     </div>
+    <audio id="bgmusic" autoplay="autoplay">
+        <source src="../static/images/music.mp3" type="audio/mp3">
+    </audio>
 
 
 
@@ -58,8 +61,23 @@
     <script type="text/javascript">
     // 开始游戏
     $.xMas('#game-container');
+    var audio = document.getElementById("bgmusic");
     var iw = innerWidth / parseFloat($('html').css("fontSize"));
     var ih = innerHeight / parseFloat($('html').css("fontSize"));
+    var src1 = 'http://127.0.0.1/static/images/goldvoice.png';
+    var src2 = 'http://127.0.0.1/static/images/goldhelp.png';
+    function change(img) {
+        var s = img.src;
+        console.log(s);
+        if(s == src1){
+            img.src = src2;
+            audio.pause();
+        }
+        if(s == src2){
+            img.src = src1
+            audio.play();
+        }
+    }
     </script>
     <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js "></script>
     <script src="https://wx.idsbllp.cn/wx-api/share.js "></script>
@@ -74,6 +92,7 @@
             type: '',
             success: function() {
                 console.log('分享成功');
+                share();
             },
             cancel: function() {
                 console.log('取消分享');

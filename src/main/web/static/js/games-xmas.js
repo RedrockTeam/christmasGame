@@ -47,15 +47,12 @@
 				this.bindSantaClausMove("control");
 				this.pointTimer();
 				window.enemyTimer = setInterval(function() {
-					this.makeEnemy(3, 'left');
-					// this.makeEnemy(3, "right");
+					this.makeEnemy(2, 'left');			
+					this.makeEnemy(2, "right");
 					this.makeEnemy(3, "top");
 				}.bind(this), 4000);
 
 				this.scoreTimer = setInterval(function() {
-					if (this.character.point > 15 && this.character.point < 30) {
-						this.makeBuff("red");
-					}
 					if (this.character.point > 30) {
 						this.makeBuff("gold");
 					}
@@ -89,6 +86,7 @@
 				$(".game-container").children().not(".settings").remove();
 				$(".settings").css("display", "none");
 				$(".game-container").addClass('game-over');
+				audio.pause();
 				clearInterval(this.scoreTimer);
 				clearInterval(window.enemyTimer)
 				clearInterval(this.hitTimer);
@@ -245,10 +243,10 @@
 					}
 					if (this.gameStatusTrigger($(".control"), $(enemy), true)) {
 						$(enemy).addClass('enemy-fast');
-						return this.moveEnemy(enemy, 0.08, direction);
+						return this.moveEnemy(enemy, 0.1, direction);
 					}
 					$(enemy).removeClass('enemy-fast');
-					return this.moveEnemy(enemy, 0.05, direction);
+					return this.moveEnemy(enemy, 0.08, direction);
 
 				}.bind(this), 8)
 			}
