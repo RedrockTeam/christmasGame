@@ -53,13 +53,11 @@ function getUser() {
     var req = packReq('USER-INFO', 'GET', null, null);
     request(req, function(data) {
         var count = data.data.count;
-        if (count == 0) {
-            window.location.href = '/';
-            alert("游戏次数已经用完");
-        } else {
-            alert("你还有" + count + "次游戏次数");
-        }
 
+        if (count <= 0) {
+            window.location.href = './start.html';
+            alert("游戏次数已经用完");
+        } 
     })
 }
 
